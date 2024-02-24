@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Dimensions, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { consonantsArray, colorsArrays } from './constant';
 
@@ -41,23 +41,32 @@ export default function App() {
 
   return (
     <LinearGradient colors={backgroundColor} style={styles.container}>
-      <TouchableOpacity onPress={changeConsonant}>
-        <Text style={[styles.textStyle, {
-          fontSize: adjustFontSize(currentConsonant.length),
-          lineHeight: Math.min(deviceWidth, deviceHeight) * 0.5 * 1.2,
-        }]}>{currentConsonant.toUpperCase()}</Text>
-        <Text style={[styles.textStyle, {
-          fontSize: adjustFontSize(currentConsonant.length, 100),
-          lineHeight: Math.min(deviceWidth, deviceHeight) * 0.3 * 1.2,
-        }]}>{currentConsonant.toLowerCase()}</Text>
-        <StatusBar style="auto" />
-      </TouchableOpacity>
+      <View style={styles.contentContainer}>
+        <TouchableOpacity onPress={changeConsonant}>
+          <Text style={[styles.textStyle, {
+            fontSize: adjustFontSize(currentConsonant.length),
+            lineHeight: Math.min(deviceWidth, deviceHeight) * 0.5 * 1.2,
+          }]}>{currentConsonant.toUpperCase()}</Text>
+          <Text style={[styles.textStyle, {
+            fontSize: adjustFontSize(currentConsonant.length, 100),
+            lineHeight: Math.min(deviceWidth, deviceHeight) * 0.3 * 1.2,
+          }]}>{currentConsonant.toLowerCase()}</Text>
+          <StatusBar style="auto" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.footer}>
+      <Text style={styles.paragraphStyles}>Made with ❤️️ </Text>
+        <Text style={styles.paragraphStyles}>By Tatay For Stella</Text>
+      </View>
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  contentContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -71,5 +80,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'black',
+  },
+  footer: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: 10,
+  },
+  paragraphStyles: {
+    fontSize: 16,
+    color: '#e2e2e2',
+    textAlign: 'center', // Or 'left' or 'right' as needed
+    marginTop: 10, // Or adjust as needed
   },
 });
