@@ -56,7 +56,7 @@ export default function App() {
       </View>
       <View style={styles.footer}>
       <Text style={styles.paragraphStyles}>Made with ❤️️ </Text>
-        <Text style={styles.paragraphStyles}>By Tatay For Stella</Text>
+        <Text style={styles.paragraphStyles}>By Tatay For SabAnaSam</Text>
       </View>
     </LinearGradient>
   );
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   paragraphStyles: {
     fontSize: 16,
     color: '#e2e2e2',
-    textAlign: 'center', // Or 'left' or 'right' as needed
-    marginTop: 10, // Or adjust as needed
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
