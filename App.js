@@ -2,24 +2,74 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { consonants, colorsArrays } from './constant';
+import { consonantsArray, colorsArrays } from './constant';
 
 export default function App() {
-  const [backgroundColor, setBackgroundColor] = useState(['#FF90BC', '#FFC0D9', '#F9F9E0', '#8ACDD7']); // Initial gradient colors
+  const [backgroundColor, setBackgroundColor] = useState(colorsArrays[0]); // Initial gradient colors
+
+  const getRandomColor = () => {
+    const randomIndex = Math.floor(Math.random() * colorsArrays.length);
+    return colorsArrays[randomIndex];
+  }
+
+  const getRandomConsonant = (consonants) => {
+    const randomIndex = Math.floor(Math.random() * consonantsArray.length);
+    return consonants[randomIndex];
+  }
+
+  const [currentConsonant, setCurrentConsonant] = useState(getRandomConsonant(consonantsArray));
+
+  const changeConsonant = () => {
+    const randomConsonant = getRandomConsonant(consonantsArray);
+    setCurrentConsonant(randomConsonant);
+    setBackgroundColor(getRandomColor());
+  }
+
+  useEffect(() => {
+    if (!currentConsonant) {
+      setCurrentConsonant(getRandomConsonant(consonantsArray));
+    }
+  }, []);
+
+  const deviceWidth = Dimensions.get('window').width;
+  const deviceHeight = Dimensions.get('window').height;
+
+  const adjustFontSize = (numChars, baseFontSize = 200) => {
+    const charsPerLine = 2;
+    return Math.min(baseFontSize, numChars / charsPerLine * baseFontSize);
+  }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LinearGradient colors={backgroundColor} style={styles.container}>
+      <TouchableOpacity onPress={changeConsonant}>
+        <Text style={[styles.textStyle, {
+          fontSize: adjustFontSize(currentConsonant.length),
+          lineHeight: Math.min(deviceWidth, deviceHeight) * 0.5 * 1.2,
+        }]}>{currentConsonant.toUpperCase()}</Text>
+        <Text style={[styles.textStyle, {
+          fontSize: adjustFontSize(currentConsonant.length, 100),
+          lineHeight: Math.min(deviceWidth, deviceHeight) * 0.3 * 1.2,
+        }]}>{currentConsonant.toLowerCase()}</Text>
+        <StatusBar style="auto" />
+      </TouchableOpacity>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  touchableOpacity: {
+    backgroundColor: 'transparent',
+    padding: 20,
+    borderRadius: 10,
+  },
+  textStyle: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'black',
   },
 });

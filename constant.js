@@ -1,4 +1,4 @@
-export const consonants = [
+export const consonantsArray = [
   "Ba", "Be", "Bi", "Bo", "Bu",
   "Da", "De", "Di", "Do", "Du",
   "Ga", "Ge", "Gi", "Go", "Gu",
